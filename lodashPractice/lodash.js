@@ -1,3 +1,5 @@
+var _ = require('lodash');
+
 var customers = [
   {
     id: 1,
@@ -74,8 +76,19 @@ var customers = [
 // Create an array of all email addresses
 // first without using lodash's map (with property argument) method, then with it.
 
-//CODE HERE
 
+  let arr = [];
+  for(let i=0; i<customers.length; i++){
+    if(customers[i].email){
+      arr.push(customers[i].email);
+    }
+  }
+
+//--------------------------//
+
+let emailArr = _.map(customers, (user) => user.email);
+
+//--------------------------//
 
 
 var inviteList1 = ["Ed", "Fanny", "Mildred", "Alice", "James"];
@@ -84,6 +97,20 @@ var inviteList2 = ["Jake", "Mildred", "Jimmy", "Ed", "Franklin"];
 // Uh oh! We are having a party and two invite lists were created.
 // Create a duplicate-free list of the people we want at the party without lodash's _.union().
 // Then create another list that removes all duplicates using _.union().
+
+var guests = [...inviteList1];
+for(let i=0; i<inviteList2.length; i++){
+  let idx = guests.indexOf(inviteList2[i]);
+  if(idx===-1){
+    guests.push(inviteList2[i]);
+  }
+}
+
+//--------------------------//
+
+let guestList = _.union(inviteList1, inviteList2);
+
+//--------------------------//
 
 var friendsOfJim = [
   "Tom",
@@ -110,6 +137,21 @@ var friendsOfBetty = [
 // Jim and Betty are having a party, but they only want to invite mutual friends.
 // Create an array of mutual friends. First without using lodash.
 // Then using lodash's _.intersection().
+
+let party = [];
+for (let i=0; i<friendsOfBetty.length; i++){
+  for(let k=0; k<friendsOfJim.length; k++){
+    if(friendsOfBetty[i]===friendsOfJim[k]){
+      party.push(friendsOfBetty[i]);
+    }
+  }
+}
+
+//--------------------------//
+
+let partyList = _.intersection(friendsOfBetty, friendsOfJim);
+
+//--------------------------//
 
 var purchases = [
   {
@@ -147,4 +189,20 @@ var purchases = [
 ];
 
 // First, group the purchases by company without lodash
-// then do it again using _.groupBy()
+// then do it again using _.groupBy()}}
+
+let dunder = [];
+let staples = [];
+for(let i=0; i<purchases.length; i++){
+  if(purchases[i].company==='Dunder Mifflin'){
+    dunder.push(purchases[i]);
+  } else if (purchases[i].company==='Staples'){
+    staples.push(purchases[i]);
+  }
+}
+
+//--------------------------//
+
+let orders = _.groupBy(purchases, 'company')
+
+//--------------------------//
